@@ -115,12 +115,17 @@ void printAdjacency(void *info1)
    pVertice v = (pVertice)info1;
    printf("%d - ", *((int *)(v->info)));
 }
-
+/* ----------------------------- */
+void printVertexWidth(void *info1)
+{
+   pVertice v = (pVertice)info1;
+   printf("%d ", *((int *)v->info));
+}
 /* ----------------------------- */
 void printVertex(void *info1)
 {
    pVertice v = (pVertice)info1;
-   printf("\nVertex %d - Adjacencies [", *((int *)v->info));
+   printf("\nVertice %d - Adjacentes [", *((int *)v->info));
 
    printList(v->listaAdjacencias, printAdjacency);
    printf("]\n");
@@ -130,7 +135,7 @@ void printVertex(void *info1)
 void printVertexWithoutAdjacencies(void *info1)
 {
    pVertice v = (pVertice)info1;
-   printf("\nVertex %d - ", *((int *)v->info));
+   printf("\nVertice %d - ", *((int *)v->info));
 }
 
 /* ---------------------------------------- */

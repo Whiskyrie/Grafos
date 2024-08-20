@@ -4,40 +4,51 @@
 /* --------------------------- */
 void breadthSearch(pDGrafo grafo, FuncaoComparacao fc, FuncaoImpressao fi)
 {
-    pDFila verticesPendentes;
+    pDLista verticesPendentes;
     pDLista verticesVisitados;
 
-    verticesPendentes = createQueue();
+    verticesPendentes = createList();
     verticesVisitados = createList();
 
-    // Enfileira o primeiro vértice do grafo
-    enqueueInfo(verticesPendentes, grafo->listaVertices->primeiro->info);
+    // Insere o primeiro vértice na lista de pendentes
+    addInfo(verticesPendentes, grafo->listaVertices->primeiro->info);
 
-    while (isQueueEmpty(verticesPendentes) != 0)
+    while (verticesPendentes->quantidade > 0)
     {
-        pVertice vAtual = dequeueInfo(verticesPendentes);
+        pNoh nohAtual = verticesPendentes->primeiro;
+        pVertice verticeAtual = (pVertice)nohAtual->info;
 
         // Visita o vértice se ainda não foi visitado
-        if (containsInfo(verticesVisitados, vAtual, fc) == 0)
+        if (containsInfo(verticesVisitados, verticeAtual, fc) == 0)
         {
-            fi(vAtual);
-            addInfo(verticesVisitados, vAtual);
+            fi(verticeAtual);
+            addInfo(verticesVisitados, verticeAtual);
 
-            // Enfileira todas as adjacências do vértice atual que não foram visitadas
-            pNoh atual = vAtual->listaAdjacencias->primeiro;
+            // Insere as adjacências do vértice atual na lista de pendentes, se não foram visitadas
+            pNoh atual = verticeAtual->listaAdjacencias->primeiro;
             while (atual != NULL)
             {
                 if (containsInfo(verticesVisitados, atual->info, fc) == 0)
                 {
-                    enqueueInfo(verticesPendentes, atual->info);
+                    addInfo(verticesPendentes, atual->info);
                 }
                 atual = atual->prox;
             }
         }
+
+        // Remove o vértice atual da lista de pendentes
+        verticesPendentes->primeiro = nohAtual->prox;
+        if (verticesPendentes->quantidade == 1)
+        {
+            verticesPendentes->ultimo = NULL;
+        }
+        verticesPendentes->quantidade--;
+        free(nohAtual);
     }
 
     // Libera a memória alocada
-    destroyQueue(verticesPendentes);
+    destroyList(verticesPendentes);
     destroyList(verticesVisitados);
 }
+
 #endif

@@ -131,7 +131,7 @@ int main()
 
         case 7:
             printf("Busca em amplitude:\n");
-            breadthSearch(grafo, compareVertex, printVertexWithoutAdjacencies);
+            breadthSearch(grafo, compareVertex, printVertexWidth);
             break;
 
         case 8:

@@ -5,8 +5,12 @@ int isQueueEmpty(pDFila pdFila)
 {
 
     if (pdFila != NULL)
+    {
         return pdFila->pdLista->quantidade;
-
-    return 0;
+    }
+    else
+    {
+        return 0;
+    }
 }
 #endif
