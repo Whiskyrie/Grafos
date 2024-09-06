@@ -33,7 +33,9 @@
     "fila.h": "c",
     "tad_listalinear.h": "c",
     "arvorebinariabalanceada.h": "c",
-    "pilha.h": "c"
+    "pilha.h": "c",
+    "utils.h": "c",
+    "conio.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

@@ -1,5 +1,5 @@
-#ifndef GRAFO_IMPL_H
-#define GRAFO_IMPL_H
+#ifndef GRAFO_H
+#define GRAFO_H
 
 #include "../Lista/Lista.h"
 
@@ -37,9 +37,8 @@
 
 #include "Operacoes/13_subGraph.h"
 
-/*
-#include "Operacoes/14_existeCaminhoHamiltoniano.h"
-#include "Operacoes/15_existeCaminhoEuleriano.h"
-*/
+#include "Operacoes/14_isHamiltonian.h"
 
-#endif
+#include "Operacoes/15_isEulerian.h"
+
+#endif // GRAFO__H

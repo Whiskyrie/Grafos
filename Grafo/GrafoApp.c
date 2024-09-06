@@ -41,6 +41,16 @@ pDGrafo ConstroiGrafo()
     return grafo;
 }
 
+void addArestas(pDGrafo grafo, int arestas[][2], int numArestas, FuncaoComparacao fc)
+{
+    for (int i = 0; i < numArestas; i++)
+    {
+        int vOrigem = arestas[i][0];
+        int vDestino = arestas[i][1];
+        addEdge(grafo, &vOrigem, &vDestino, fc);
+    }
+}
+
 void exibirMenu()
 {
     printf("Menu de Opcoes\n");
@@ -55,7 +65,10 @@ void exibirMenu()
     printf("7  - Busca em amplitude\n");
     printf("8  - Existe caminho? (entre dois vertices)\n");
     printf("9  - Encontra caminho (entre dois vertices)\n");
-    printf("10 - Sair\n");
+    printf("10 - Verificar se o grafo e Hamiltoniano\n");
+    printf("11 - Verificar se o grafo e Euleriano\n");
+    printf("12 - Adicionar Multiplas arestas\n");
+    printf("13 - Sair\n");
     printf("---------------\n");
     printf("\nEscolha uma opcao: ");
 }
@@ -162,15 +175,64 @@ int main()
             else
                 printf("Nao existe um caminho entre %d e %d.\n", vOrigem, vDestino);
             break;
+
+        case 10:
+            printf("Verificando se o grafo e Hamiltoniano...\n");
+            if (isHamiltonian(grafo, compareVertex))
+            {
+                printf("O grafo e Hamiltoniano!\n");
+            }
+            else
+            {
+                printf("O grafo nao e Hamiltoniano.\n");
+            }
+            break;
+
+        case 11:
+            printf("Verificando se o grafo e Euleriano...\n");
+            if (isEulerian(grafo))
+            {
+                printf("O grafo e Euleriano!\n");
+            }
+            else
+            {
+                printf("O grafo nao e Euleriano.\n");
+            }
+            break;
+        case 12:
+        {
+            int numArestas;
+            printf("Quantas arestas deseja adicionar? ");
+            scanf("%d", &numArestas);
+
+            int(*arestas)[2] = malloc(numArestas * sizeof(*arestas));
+
+            for (int i = 0; i < numArestas; i++)
+            {
+                printf("Aresta %d:\n", i + 1);
+                printf("  Vertice origem: ");
+                scanf("%d", &arestas[i][0]);
+                printf("  Vertice destino: ");
+                scanf("%d", &arestas[i][1]);
+            }
+
+            addArestas(grafo, arestas, numArestas, compareVertex);
+
+            free(arestas);
+
+            printf("Arestas adicionadas. Grafo atualizado:\n");
+            displayGraph(grafo, printVertex);
+        }
+        break;
         }
 
-        if (opcao != 10)
+        if (opcao != 13)
         {
             printf("\nPressione qualquer tecla para continuar...");
             getch();
         }
 
-    } while (opcao != 10);
+    } while (opcao != 13);
 
     printf("Programa encerrado.\n");
     return 0;
